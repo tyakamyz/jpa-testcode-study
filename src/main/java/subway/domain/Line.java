@@ -1,6 +1,7 @@
 package subway.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ public class Line {
     private String name;
 
     @OneToMany(mappedBy = "line")
-    private List<Station> stations;
+    private List<Station> stations = new ArrayList<>();
 
     protected Line() {
 
@@ -45,5 +46,10 @@ public class Line {
 
     public void setStations(List<Station> stations) {
         this.stations = stations;
+    }
+
+    public void addStation(Station station) {
+        stations.add(station);
+        station.setLine(this);
     }
 }

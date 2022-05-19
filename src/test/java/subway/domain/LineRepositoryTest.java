@@ -46,4 +46,19 @@ class LineRepositoryTest {
 
         assertThat(station.getLine()).isNull();
     }
+
+    @Test
+    void findByName() {
+        Line line = lines.findByName("3호선").get();
+        assertThat(line.getStations()).hasSize(1);
+        assertThat(line.getStations().get(0).getName()).isEqualTo("교대역");
+    }
+
+    @Test
+    void save() {
+        Line line = new Line("2호선");
+        line.addStation(stations.save(new Station("잠실역")));
+        lines.save(line);
+        lines.flush();
+    }
 }
